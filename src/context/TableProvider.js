@@ -6,6 +6,7 @@ import TableContext from './TableContext';
 function TableProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [filterName, setFilterName] = useState('');
 
   useEffect(() => {
     const getPlanets = async () => {
@@ -17,8 +18,14 @@ function TableProvider({ children }) {
     getPlanets();
   }, []);
 
+  const providerValue = { isLoading,
+    data,
+    filters: { filterByName: { name: filterName } },
+    setFilterName,
+  };
+
   return (
-    <TableContext.Provider value={ { isLoading, data } }>
+    <TableContext.Provider value={ providerValue }>
       {children}
     </TableContext.Provider>
   );

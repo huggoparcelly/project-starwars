@@ -2,7 +2,13 @@ import React, { useContext } from 'react';
 import TableContext from '../context/TableContext';
 
 function Table() {
-  const { data, isLoading } = useContext(TableContext);
+  const { data, isLoading,
+    filters: { filterByName: { name } } } = useContext(TableContext);
+
+  let allData = data;
+  if (name) {
+    allData = allData.filter((planet) => planet.name.includes(name));
+  }
 
   return data.length > 0 && !isLoading ? (
     <main>
@@ -14,11 +20,11 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {data.map((info, index) => (
+          {allData.map((info, index) => (
             <tr key={ index }>
               {Object.entries(info).map((content) => (
                 content[0] === 'residents' ? null
-                  : <td key={ content[1] }>{ content[1]}</td>))}
+                  : <td key={ content[1] }>{ content[1] }</td>))}
             </tr>))}
         </tbody>
       </table>
