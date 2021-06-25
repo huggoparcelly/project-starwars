@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import fetchApi from '../services/fetchApi';
 import TableContext from './TableContext';
 
-const optionsFilter = [
-  'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
-
 function TableProvider({ children }) {
+  const optionsFilter = [
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [filterColumn, setFilterColumn] = useState(optionsFilter);
@@ -41,12 +41,12 @@ function TableProvider({ children }) {
   ));
 
   filterNumeric.filter(({ column, comparison, value }) => {
-    if (comparison === 'maior') {
-      allData = allData.filter((planet) => (planet[column] > parseInt(value, 10)));
-    } else if (comparison === 'menor') {
-      allData = allData.filter((planet) => (planet[column] < parseInt(value, 10)));
-    } else if (comparison === 'igual') {
-      allData = allData.filter((planet) => (planet[column] === parseInt(value, 10)));
+    if (comparison === 'maior que') {
+      allData = allData.filter((planet) => Number(planet[column]) > Number(value));
+    } else if (comparison === 'menor que') {
+      allData = allData.filter((planet) => Number(planet[column]) < Number(value));
+    } else if (comparison === 'igual a') {
+      allData = allData.filter((planet) => Number(planet[column]) === Number(value));
     }
     return allData;
   });
