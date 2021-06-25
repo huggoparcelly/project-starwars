@@ -2,13 +2,7 @@ import React, { useContext } from 'react';
 import TableContext from '../context/TableContext';
 
 function Table() {
-  const { data, isLoading,
-    filters: { filterByName: { name } } } = useContext(TableContext);
-
-  let allData = data;
-  if (name) {
-    allData = allData.filter((planet) => planet.name.includes(name));
-  }
+  const { data, isLoading, allData } = useContext(TableContext);
 
   return data.length > 0 && !isLoading ? (
     <main>
