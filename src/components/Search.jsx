@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import TableContext from '../context/TableContext';
 
 function Search() {
-  const { setFilterName, getFilterNumeric } = useContext(TableContext);
+  const { setFilterName, getFilterNumeric, allFilters } = useContext(TableContext);
   const [getNumeric, setGetNumeric] = useState({
     column: 'population',
     comparison: 'maior',
@@ -48,11 +48,8 @@ function Search() {
         name="column"
         onChange={ handleFilterColumn }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {allFilters.map((filter) => (
+          <option key={ filter } value={ filter }>{filter}</option>))}
       </select>
       <select
         data-testid="comparison-filter"
