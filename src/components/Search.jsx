@@ -49,7 +49,9 @@ function Search() {
         onChange={ handleFilterColumn }
       >
         {allFilters.map((filter) => (
-          <option key={ filter } value={ filter }>{filter}</option>))}
+          <option key={ filter } value={ filter }>
+            {filter}
+          </option>))}
       </select>
       <select
         data-testid="comparison-filter"
